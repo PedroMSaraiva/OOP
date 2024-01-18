@@ -1,12 +1,46 @@
-class Car: #Interface
+from abc import ABC, abstractclassmethod
+
+class Car(ABC): #Interface Car
     def __init__(self) -> None:
         pass
     
     def __str__(self) -> None:
         pass
     
+    @abstractclassmethod
+    def set_marca(self) -> None:
+        pass
     
-class CarBuilder:
+    @abstractclassmethod
+    def set_modelo(self) -> None:
+        pass
+    
+    @abstractclassmethod
+    def set_cor(self) -> None:
+        pass
+    
+    @abstractclassmethod
+    def set_numero_de_portas(self) -> None:
+        pass
+    
+    @abstractclassmethod
+    def set_aro(self) -> None:
+        pass
+    
+    @abstractclassmethod
+    def set_motor(self) -> None:
+        pass
+    
+    @abstractclassmethod
+    def set_chassi(self) -> None:
+        pass
+    
+    @abstractclassmethod
+    def reset(self) -> None:
+        pass
+    
+    
+class CarBuilder(Car):
     def __init__(self):
         self.car = Car()
         
@@ -30,7 +64,7 @@ class CarBuilder:
         return self.car
     
     
-class Director:
+class Director():
     def __init__(self, builder):
         self.__builder = builder
     
