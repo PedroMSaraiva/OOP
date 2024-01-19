@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+# Interface abstrata para a construção de um carro.
 class Car(ABC):
     @abstractmethod
     def set_marca(self, marca: str):
@@ -29,7 +30,7 @@ class Car(ABC):
     def set_chassi(self, chassi: str):
         pass
     
-
+# Implementação concreta da interface Car.
 class CarConcrete(Car):
     def set_marca(self, marca: str):
         self.__marca = marca
@@ -59,11 +60,13 @@ class CarConcrete(Car):
         self.__chassi = chassi
         return self
 
-
+# Classe responsável por construir o carro seguindo o padrão Builder.
 class CarBuilder:
+    # Inicializa o builder, preparando para a construção.
     def __init__(self):
         self.reset()
 
+    # Reinicia o processo de construção iniciando um novo objeto CarConcrete.
     def reset(self):
         self.__car = CarConcrete()
 
@@ -95,17 +98,20 @@ class CarBuilder:
         self.__car.set_chassi(chassi)
         return self
 
+    # Finaliza a construção e retorna o carro construído.
     def build(self):
         car = self.__car
         self.reset()
         return car
 
     
-
+#  Classe que direciona o processo de construção do carro.
 class Director:
+    # Inicialização opcional do builder.
     def __init__(self, builder: CarBuilder = None):
         self.__builder = builder
 
+    # Métodos para obter e definir o builder.
     @property
     def builder(self) -> CarBuilder:
         return self.__builder
@@ -147,7 +153,7 @@ class Director:
                 .set_chassi("Rolls Royce Exclusive")
                 .build())
 
-
+#Execução e teste do codigo
 def main():
     builder = CarBuilder()
     diretor = Director()
