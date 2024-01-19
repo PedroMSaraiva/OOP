@@ -39,6 +39,10 @@ class Car(ABC): #Interface Car
     def reset(self) -> None:
         pass
     
+    @abstractclassmethod
+    def build(self) -> None:
+        pass
+    
 
 #Exemplo de ConcreateBuilder
 #Cada concreate builder pode ter variações, como
@@ -46,38 +50,80 @@ class Car(ABC): #Interface Car
 #como esta exemplificado no diagrama UML de classes
 
 class CarBuilder(Car):
-    def __init__(self):
-        self.car = Car()
+    def __init__(self, car: Car, marca: str, modelo: str, cor: str, numero_de_portas: int, aro: int, motor: str, chassi: str):
+        self.__car = car
+        self.__marca = marca
+        self.__modelo = modelo
+        self.__cor = cor
+        self.__numero_de_portas = numero_de_portas
+        self.__aro = aro
+        self.__motor = motor
+        self.__chassi = chassi
+    
+    @property
+    def car(self):
+        return self.__car
+    
+    @car.setter
+    def car(self, car: Car):
+        self.__car = Car 
         
-    def set_marca(self, marca):
-        self.car.marca = marca
-        return self
+    @property   
+    def set_marca(self):
+        return self.__marca
     
-    def set_modelo(self, modelo):
-        self.car.modelo = modelo
-        return self
+    @set_marca.setter
+    def set_marca(self, marca: str):
+        self.car.__marca = marca
     
-    def set_cor(self, cor):
-        self.car.cor = cor
-        return self
+    @property
+    def set_modelo(self, ):
+        return self.__modelo
     
-    def set_numero_de_portas(self, numero_de_portas):
-        self.car.numero_de_portas = numero_de_portas
-        return self
+    @set_modelo.setter
+    def set_modelo(self, modelo: str):
+        self.car.__modelo = modelo
     
+    @property
+    def set_cor(self):
+        return self.__cor
+    
+    @set_cor.setter
+    def set_cor(self, cor: str):
+        self.car.__cor = cor
+
+    @property
+    def set_numero_de_portas(self):
+        return self.__numero_de_portas
+    
+    @set_numero_de_portas.setter
+    def set_numero_de_portas(self, numero_de_portas: int):
+        self.car.__numero_de_portas = numero_de_portas
+        
+    @property
     def set_aro(self, aro):
-        self.car.aro = aro
-        return self
+        return self.__aro
     
-    def set_motor(self, motor):
-        self.car.motor = motor
-        return self
+    @set_aro.setter
+    def set_aro(self, aro: int):
+        self.car.__aro = aro
     
+    @property
+    def set_motor(self):
+        return self.__motor
+    
+    @set_motor.setter
+    def set_motor(self, motor: str):
+        self.car.__motor = motor
+    
+    @property
+    def set_chassi(self):
+        return self.__chassi
+    
+    @set_chassi.setter
     def set_chassi(self, chassi):
-        self.car.chassi = chassi
-        return chassi
-    
-    
+        self.car.__chassi = chassi
+
     def build(self):
         car1 = self.car
         self.reset()
@@ -112,9 +158,9 @@ class Director():
         self.__builder.set_modelo("Corolla") 
         self.__builder.set_cor("Preto")
         self.__builder.set_numero_de_portas(4)
-        self.__builder.set_aro()
-        self.__builder.set_motor()
-        self.__builder.chassi()
+        self.__builder.set_aro(15)
+        self.__builder.set_motor("I-4 1.8L")
+        self.__builder.set_chassi("MacPherson Strut")
         return self.__builder.build()  
         
     def build_sport(self) -> None:
@@ -122,9 +168,9 @@ class Director():
         self.__builder.set_modelo("Aventador")
         self.__builder.set_cor("Amarelo")
         self.__builder.set_numero_de_portas(2)
-        self.__builder.set_aro()
-        self.__builder.set_motor()
-        self.__builder.chassi()
+        self.__builder.set_aro(21)
+        self.__builder.set_motor("V12 ")
+        self.__builder.set_chassi("Double Wishbone")
         return self.__builder.build()
             
     def build_suv(self) -> None:
@@ -132,9 +178,9 @@ class Director():
         self.__builder.set_modelo("Phantom")
         self.__builder.set_cor("Preto")
         self.__builder.set_numero_de_portas(4)
-        self.__builder.set_aro()
-        self.__builder.set_motor()
-        self.__builder.chassi()
+        self.__builder.set_aro(22)
+        self.__builder.set_motor("6.75 L V12")
+        self.__builder.set_chassi("Rolls Royce Exclusive")
         return self.__builder.build()
 
 
