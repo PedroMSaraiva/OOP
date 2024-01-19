@@ -35,6 +35,22 @@ class Produto(EnterpriseComponent):
     def atender_cliente(self):
         pass  # Produto não implementa atender_cliente
     
+#Lear
+class Transporte(EnterpriseComponent):
+    def gerar_produto(self):
+        pass # Atendimento não implementa gerar_produto
+    
+    def transportar_produto(self):
+        print("Produto sendo transportado...")
+        print("...")
+        print("...")
+        print("Produto transportado com sucesso")
+    
+    def efetuar_pagamento(self, valor: float):
+        pass # Produto não implementa efetuar_pagamento
+    
+    def atender_cliente(self):
+        pass # Produto não implementa atender_cliente
 
 # Leaf
 class Atendimento(EnterpriseComponent):
@@ -72,6 +88,8 @@ class GerenteOperacional(EnterpriseComponent):
         self.children = []
 
     def add(self, component: EnterpriseComponent):
+        if not isinstance(component, EnterpriseComponent):
+            raise TypeError("Can only add EnterpriseComponent")
         self.children.append(component)
 
     def remove(self, component: EnterpriseComponent):
@@ -96,6 +114,7 @@ class GerenteOperacional(EnterpriseComponent):
 if __name__ == "__main__":
     # Criar objetos leaf
     produto = Produto()
+    transporte = Transporte()
     atendimento = Atendimento()
     pagamento = Pagamento()
 
@@ -104,10 +123,12 @@ if __name__ == "__main__":
 
     # Adicionar leafs ao composite
     gerente_operacional.add(produto)
+    gerente_operacional.add(transporte)
     gerente_operacional.add(atendimento)
     gerente_operacional.add(pagamento)
 
     # Executar métodos composite, que delegam para os leafs
     gerente_operacional.gerar_produto()
+    gerente_operacional.transportar_produto()
     gerente_operacional.atender_cliente()
     gerente_operacional.efetuar_pagamento(1000.0)
